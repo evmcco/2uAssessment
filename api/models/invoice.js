@@ -29,6 +29,18 @@ class Invoice {
       return err.message;
     }
   }
+
+  static async getUnapprovedInvoices() {
+    try {
+      const response = await db.any(
+        `select * from invoices where status = 'Pending'`
+      );
+      return response;
+    } catch (err) {
+      return err.message;
+    }
+  }
+
   static async acceptInvoice(invoice_number) {
     try {
       const response = await db.one(

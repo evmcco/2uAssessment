@@ -2,7 +2,11 @@ var express = require("express");
 var router = express.Router();
 const invoiceModel = require("../models/invoice");
 
-/* GET home page. */
+router.get("/", async (req, res, next) => {
+  const response = await invoiceModel.getUnapprovedInvoices;
+  res.json(response).status(200);
+});
+
 router.post("/", async (req, res, next) => {
   const invoice_number = req.body.invoice_number,
     total = req.body.total,
