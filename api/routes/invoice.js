@@ -3,7 +3,7 @@ var router = express.Router();
 const invoiceModel = require("../models/invoice");
 
 router.get("/", async (req, res, next) => {
-  const response = await invoiceModel.getUnapprovedInvoices;
+  const response = await invoiceModel.getUnapprovedInvoices();
   res.json(response).status(200);
 });
 
