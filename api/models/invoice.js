@@ -35,6 +35,7 @@ class Invoice {
       const response = await db.any(
         `select * from invoices where status = 'Pending'`
       );
+      console.log("GET RESPONSE SAMPLE:", response[1]);
       return response;
     } catch (err) {
       return err.message;

@@ -22,6 +22,11 @@ class InvoiceList extends Component {
     return data;
   };
 
+  trimDate = date => {
+    date = date.split("T")[0];
+    return date;
+  };
+
   approveInvoice = async invoice_number => {
     const url = `http://localhost:3000/invoice/${invoice_number}`;
     const response = await fetch(url, {
@@ -55,8 +60,8 @@ class InvoiceList extends Component {
                 <td>{invoice.vendor_name}</td>
                 <td>{invoice.remittance_address}</td>
                 <td>{invoice.total}</td>
-                <td>{invoice.invoice_date}</td>
-                <td>{invoice.due_date}</td>
+                <td>{this.trimDate(invoice.invoice_date)}</td>
+                <td>{this.trimDate(invoice.due_date)}</td>
                 <td>
                   <button
                     onClick={() => this.approveInvoice(invoice.invoice_number)}
