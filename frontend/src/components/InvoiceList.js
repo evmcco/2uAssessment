@@ -11,6 +11,14 @@ class InvoiceList extends Component {
     this.setState({
       invoices
     });
+
+    setInterval(async () => {
+      const invoices = await this.loadInvoiceData();
+      console.log("INVOICES:", invoices);
+      this.setState({
+        invoices
+      });
+    }, 5000);
   }
 
   loadInvoiceData = async () => {
@@ -53,25 +61,29 @@ class InvoiceList extends Component {
             <td>Due Date</td>
             <td>Action</td>
           </tr>
-          {this.state.invoices.map((invoice, index) => {
-            return (
-              <tr key={`${index}`}>
-                <td>{invoice.invoice_number}</td>
-                <td>{invoice.vendor_name}</td>
-                <td>{invoice.remittance_address}</td>
-                <td>{invoice.total}</td>
-                <td>{this.trimDate(invoice.invoice_date)}</td>
-                <td>{this.trimDate(invoice.due_date)}</td>
-                <td>
-                  <button
-                    onClick={() => this.approveInvoice(invoice.invoice_number)}
-                  >
-                    Approve
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+          {!!this.state.invoices
+            ? this.state.invoices.map((invoice, index) => {
+                return (
+                  <tr key={`${index}`}>
+                    <td>{invoice.invoice_number}</td>
+                    <td>{invoice.vendor_name}</td>
+                    <td>{invoice.remittance_address}</td>
+                    <td>{invoice.total}</td>
+                    <td>{this.trimDate(invoice.invoice_date)}</td>
+                    <td>{this.trimDate(invoice.due_date)}</td>
+                    <td>
+                      <button
+                        onClick={() =>
+                          this.approveInvoice(invoice.invoice_number)
+                        }
+                      >
+                        Approve
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            : null}
         </tbody>
       </table>
     );
