@@ -28,7 +28,7 @@ router.post("/", async (req, res, next) => {
   res.status(200).end();
 });
 
-router.patch("/:invoice_number", async (req, res, next) => {
+router.put("/:invoice_number", async (req, res, next) => {
   const invoice_number = req.params.invoice_number;
   const response = await invoiceModel.acceptInvoice(invoice_number);
   res.send(200);

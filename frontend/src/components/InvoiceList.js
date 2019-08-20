@@ -22,6 +22,19 @@ class InvoiceList extends Component {
     return data;
   };
 
+  approveInvoice = async invoice_number => {
+    const url = `http://localhost:3000/invoice/${invoice_number}`;
+    const response = await fetch(url, {
+      method: "put"
+    });
+    console.log(`INVOICE #${invoice_number} APPROVED`);
+    const invoices = await this.loadInvoiceData();
+    console.log("INVOICES:", invoices);
+    this.setState({
+      invoices
+    });
+  };
+
   render() {
     return (
       <table>
@@ -44,7 +57,13 @@ class InvoiceList extends Component {
                 <td>{invoice.total}</td>
                 <td>{invoice.invoice_date}</td>
                 <td>{invoice.due_date}</td>
-                <td>Approve</td>
+                <td>
+                  <button
+                    onClick={() => this.approveInvoice(invoice.invoice_number)}
+                  >
+                    Approve
+                  </button>
+                </td>
               </tr>
             );
           })}

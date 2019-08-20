@@ -10,12 +10,9 @@ const cors = require("cors");
 
 const corsOptions = {
   origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  methods: "GET, PATCH, PUT, POST",
   preflightContinue: false,
-  optionsSuccessStatus: 204,
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "Origin, X-Requested-With, Content-Type, Accept"
+  optionsSuccessStatus: 204
 };
 
 const app = express();
