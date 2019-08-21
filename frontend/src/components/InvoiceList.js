@@ -51,16 +51,18 @@ class InvoiceList extends Component {
   render() {
     return (
       <table>
-        <tbody>
+        <thead>
           <tr>
-            <td>Invoice Number</td>
-            <td>Vendor Name</td>
-            <td>Vendor Address</td>
-            <td>Invoice Total</td>
-            <td>Invoice Date</td>
-            <td>Due Date</td>
-            <td>Action</td>
+            <th>Invoice Number</th>
+            <th>Vendor Name</th>
+            <th>Vendor Address</th>
+            <th>Invoice Total</th>
+            <th>Invoice Date</th>
+            <th>Due Date</th>
+            <th>Action</th>
           </tr>
+        </thead>
+        <tbody>
           {!!this.state.invoices
             ? this.state.invoices.map((invoice, index) => {
                 return (
@@ -73,11 +75,12 @@ class InvoiceList extends Component {
                     <td>{this.trimDate(invoice.due_date)}</td>
                     <td>
                       <button
+                        class="approve-button"
                         onClick={() =>
                           this.approveInvoice(invoice.invoice_number)
                         }
                       >
-                        Approve
+                        <b>Approve</b>
                       </button>
                     </td>
                   </tr>
