@@ -7,14 +7,12 @@ class InvoiceList extends Component {
 
   async componentDidMount() {
     const invoices = await this.loadInvoiceData();
-    console.log("INVOICES:", invoices);
     this.setState({
       invoices
     });
 
     setInterval(async () => {
       const invoices = await this.loadInvoiceData();
-      console.log("INVOICES:", invoices);
       this.setState({
         invoices
       });
@@ -22,7 +20,8 @@ class InvoiceList extends Component {
   }
 
   loadInvoiceData = async () => {
-    const url = "http://localhost:3000/invoice";
+    //wrong localhost port
+    const url = "http://localhost:4000/invoice";
     const response = await fetch(url, {
       method: "get"
     });
@@ -40,12 +39,8 @@ class InvoiceList extends Component {
     const response = await fetch(url, {
       method: "put"
     });
-    console.log(`INVOICE #${invoice_number} APPROVED`);
     const invoices = await this.loadInvoiceData();
-    console.log("INVOICES:", invoices);
-    this.setState({
-      invoices
-    });
+    //removed this.setState({invoices});
   };
 
   render() {
@@ -63,30 +58,28 @@ class InvoiceList extends Component {
           </tr>
         </thead>
         <tbody>
-          {!!this.state.invoices
-            ? this.state.invoices.map((invoice, index) => {
-                return (
-                  <tr key={`${index}`}>
-                    <td>{invoice.invoice_number}</td>
-                    <td>{invoice.vendor_name}</td>
-                    <td>{invoice.remittance_address}</td>
-                    <td>{invoice.total}</td>
-                    <td>{this.trimDate(invoice.invoice_date)}</td>
-                    <td>{this.trimDate(invoice.due_date)}</td>
-                    <td>
-                      <button
-                        class="approve-button"
-                        onClick={() =>
-                          this.approveInvoice(invoice.invoice_number)
-                        }
-                      >
-                        <b>Approve</b>
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })
-            : null}
+          {/* removed ternary in case state is empty */}
+          {this.state.invoices.map((invoice, index) => {
+            return (
+              <tr key={`${index}`}>
+                <td>{invoice.invoice_number}</td>
+                <td>{invoice.vendor_name}</td>
+                <td>{invoice.remittance_address}</td>
+                <td>{invoice.total}</td>
+                {/* removed 'this.' from 'this.trimDate' */}
+                <td>{trimDate(invoice.invoice_date)}</td>
+                <td>{trimDate(invoice.due_date)}</td>
+                <td>
+                  <button
+                    class="approve-button"
+                    onClick={() => this.approveInvoice(invoice.invoice_number)}
+                  >
+                    <b>Approve</b>
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     );

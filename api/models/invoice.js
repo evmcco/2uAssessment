@@ -1,7 +1,8 @@
 const db = require("./conn.js");
 
 class Invoice {
-  static async postInvoice(
+  //removed async await
+  static postInvoice(
     invoice_number,
     total,
     currency,
@@ -11,7 +12,7 @@ class Invoice {
     remittance_address
   ) {
     try {
-      const response = await db.one(
+      const response = db.one(
         `insert into invoices (invoice_number, total, currency, invoice_date, due_date, vendor_name, remittance_address, status) values ($1, $2, $3, $4, $5, $6, $7, $8)`,
         [
           invoice_number,
