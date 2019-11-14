@@ -20,7 +20,6 @@ class InvoiceList extends Component {
   }
 
   loadInvoiceData = async () => {
-    //wrong localhost port
     const url = "http://localhost:4000/invoice";
     const response = await fetch(url, {
       method: "get"
@@ -40,7 +39,6 @@ class InvoiceList extends Component {
       method: "put"
     });
     const invoices = await this.loadInvoiceData();
-    //removed this.setState({invoices});
   };
 
   render() {
@@ -58,7 +56,6 @@ class InvoiceList extends Component {
           </tr>
         </thead>
         <tbody>
-          {/* removed ternary in case state is empty */}
           {this.state.invoices.map((invoice, index) => {
             return (
               <tr key={`${index}`}>
@@ -66,7 +63,6 @@ class InvoiceList extends Component {
                 <td>{invoice.vendor_name}</td>
                 <td>{invoice.remittance_address}</td>
                 <td>{invoice.total}</td>
-                {/* removed 'this.' from 'this.trimDate' */}
                 <td>{trimDate(invoice.invoice_date)}</td>
                 <td>{trimDate(invoice.due_date)}</td>
                 <td>

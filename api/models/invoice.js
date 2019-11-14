@@ -1,7 +1,6 @@
 const db = require("./conn.js");
 
 class Invoice {
-  //removed async await
   static postInvoice(
     invoice_number,
     total,

@@ -7,7 +7,6 @@ router.get("/", async (req, res, next) => {
   res.json(response).status(200);
 });
 
-//changed post to get
 router.get("/", async (req, res, next) => {
   const invoice_number = req.body.invoice_number,
     total = req.body.total,
@@ -29,7 +28,6 @@ router.get("/", async (req, res, next) => {
   res.status(200).end();
 });
 
-//removed req params from url
 router.put("/", async (req, res, next) => {
   const invoice_number = req.params.invoice_number;
   const response = await invoiceModel.acceptInvoice(invoice_number);
